@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # This script prints Best School 10 times at 9th prints it with hi
 n=1
-while [ $n -le 10 ]
+while [ $n -le 9 ]
 do
     echo "Best School"
-    if [ $n -eq 9 ];
+    if [ $n -gt 9 ];
     then
         echo "HI"
     fi
