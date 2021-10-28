@@ -4,7 +4,7 @@ n=1
 while [ $n -le 20 ]
 do
     case $n in
-    4)
+    5)
         echo "bad luck from China"
         ;;
     10)
