@@ -5,7 +5,7 @@
 FILE=school
 if test -e "$FILE"  
 then
-    echo "school file exists."
+    echo "$FILE file exists."
     if test -s "$FILE"
     then
         echo "$FILE file is not empty"
