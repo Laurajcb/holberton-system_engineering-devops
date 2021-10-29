@@ -8,13 +8,13 @@ then
     echo "school file exists."
     if test -s "$FILE"
     then
-        echo "school file is not empty"
+        echo "$FILE file is not empty"
     else
-        echo "school file is empty"
+        echo "$FILE file is empty"
     fi
     if  text -f "$FILE" 
     then
-        echo "tonschool is a regular file"
+        echo "$FILE is a regular file"
     fi
 else
     echo "$FILE file does not exist"
