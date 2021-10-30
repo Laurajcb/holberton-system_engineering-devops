@@ -2,6 +2,7 @@
 # This script that gives you information about the school file.
 # -e FILE - True if the FILE exists and is a file, regardless of type (node, directory)
 # -s FILE - True if the FILE exists and has nonzero size
+#-f FILE - True if the FILE exists and is a regular file (not a directory or device)
 FILE=school
 if test -e "$FILE"  
 then
@@ -12,7 +13,7 @@ then
     else
         echo "$FILE file is empty"
     fi
-    if  text -f "$FILE" 
+    if  test -f "$FILE"
     then
         echo "$FILE is a regular file"
     fi
