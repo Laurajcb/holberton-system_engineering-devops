@@ -1,5 +1,5 @@
 #!/bin/env bash
-# pings an IP address passed as an argument.
+# pings an IP address passed as an argument, -c	Routing compartment identifier.
 
 if [ "$1" ]
 then
