@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#Install NGINX and configue the default html page
+
+apt-get update -y
+apt-get install nginx -y
+echo "Hello World!" > /var/www/html/index.nginx-debian.html
+sed -i '/listen 80 default_server/a error_page 404 /h404.html;\nlocation = /h404.html {\n\troot/var/www/html/h404.html;\n\tinternal;\n}' /etc/nginx/sites-available/default
+service nginx restart
