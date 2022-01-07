@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 #Install NGINX and configue the default html page
 
-apt-get update -y
-apt-get install nginx -y
-echo "Hello World!" > /var/www/html/index.nginx-debian.html
-echo "Ceci n'est pas une page" > /var/www/html/h404.html
-sed -i '/listen 80 default_server/a error_page 404 /h404.html;\nlocation = /h404.html {\n\troot /var/www/html;\n\tinternal;\n}' /etc/nginx/sites-available/default
+apt-get -y update
+apt-get -y install nginx
+service nginx start
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/h404.html
+newlines="\\\terror_page 404 /h404.html;\n\tlocation = /h404.html {\n\t\troot /var/www/html/;\n\t\tinternal;\n\t}"
+sed -i "27i $newlines" /etc/nginx/sites-available/default
 service nginx restart
+service nginx reload
