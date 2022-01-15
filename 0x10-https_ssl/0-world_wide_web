@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# display information about subdomains.
+if [ "$#" == 2 ]; then
+    SUB_DOMAIN=$2
+    RECORD_TYPE="$(dig "$2"."$1" | grep -A1 'ANSWER SECTION:' | tail -1 | tr '.' ' ' | awk '{print$6}')"
+    DESTINATION="$(dig "$2"."$1" | grep -A1 'ANSWER SECTION:' | tail -1 | awk '{print$5}')"
+    echo "The subdomain $SUB_DOMAIN is a $RECORD_TYPE record and points to $DESTINATION"
+else
+    SUB_DOMAIN="$(dig "www.$1" | grep -A1 'ANSWER SECTION:' | tail -1 | tr '.' ' ' | awk '{print$1}')"
+    RECORD_TYPE="$(dig "www.$1" | grep -A1 'ANSWER SECTION:' | tail -1 | tr '.' ' ' | awk '{print$6}')"
+    DESTINATION="$(dig "www.$1" | grep -A1 'ANSWER SECTION:' | tail -1 | awk '{print$5}')"
+    echo "The subdomain $SUB_DOMAIN is a $RECORD_TYPE record and points to $DESTINATION"
+    SUB_DOMAIN="$(dig "lb-01.$1" | grep -A1 'ANSWER SECTION:' | tail -1 | tr '.' ' ' | awk '{print$1}')"
+    RECORD_TYPE="$(dig "lb-01.$1" | grep -A1 'ANSWER SECTION:' | tail -1 | tr '.' ' ' | awk '{print$6}')"
+    DESTINATION="$(dig "lb-01.$1" | grep -A1 'ANSWER SECTION:' | tail -1 | awk '{print$5}')"
+    echo "The subdomain $SUB_DOMAIN is a $RECORD_TYPE record and points to $DESTINATION"
+    SUB_DOMAIN="$(dig "web-01.$1" | grep -A1 'ANSWER SECTION:' | tail -1 | tr '.' ' ' | awk '{print$1}')"
+    RECORD_TYPE="$(dig "web-01.$1" | grep -A1 'ANSWER SECTION:' | tail -1 | tr '.' ' ' | awk '{print$6}')"
+    DESTINATION="$(dig "web-01.$1" | grep -A1 'ANSWER SECTION:' | tail -1 | awk '{print$5}')"
+    echo "The subdomain $SUB_DOMAIN is a $RECORD_TYPE record and points to $DESTINATION"
+    SUB_DOMAIN="$(dig "web-02.$1" | grep -A1 'ANSWER SECTION:' | tail -1 | tr '.' ' ' | awk '{print$1}')"
+    RECORD_TYPE="$(dig "web-02.$1" | grep -A1 'ANSWER SECTION:' | tail -1 | tr '.' ' ' | awk '{print$6}')"
+    DESTINATION="$(dig "web-02.$1" | grep -A1 'ANSWER SECTION:' | tail -1 | awk '{print$5}')"
+    echo "The subdomain $SUB_DOMAIN is a $RECORD_TYPE record and points to $DESTINATION"
+fi
