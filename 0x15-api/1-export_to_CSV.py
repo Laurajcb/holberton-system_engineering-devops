@@ -1,20 +1,24 @@
 #!/usr/bin/python3
-""" Export data in the CSV format. """
+"""Using what you did in the task #0,
+    extend your Python script to export data in the CSV format.
+"""
+
+from sys import argv
 import csv
 import requests
-import sys
+
 
 if __name__ == "__main__":
 
-    todos = requests.get("https://jsonplaceholder.typicode.com/todos?userId={}"
-                         .format(sys.argv[1])).json()
-    users = requests.get("https://jsonplaceholder.typicode.com/users/{}"
-                         .format(sys.argv[1])).json()
-    _name = users.get('username')
-    _id = users.get('id')
+    url = 'https://jsonplaceholder.typicode.com/users/'
+    response_username = requests.get(url + argv[1])
+    username = response_username.json()['username']
+    tasks_list = []
+    response_todos = requests.get(url + argv[1] + "/todos/")
+    for items in response_todos.json():
+        tasks_list.append([items["userId"], username,
+                           items['completed'], items['title']])
 
-    with open('{}.csv'.format(sys.argv[1]), mode='w') as id_csv:
-        f = csv.writer(id_csv, quoting=csv.QUOTE_ALL)
-
-        for r in todos:
-            f.writerow([_id, _name, r.get('completed'), r.get('title')]
+    with open(str(tasks_list[0][0]) + '.csv', 'w') as file:
+        write = csv.writer(file, quoting=csv.QUOTE_ALL)
+        write.writerows(tasks_list)
