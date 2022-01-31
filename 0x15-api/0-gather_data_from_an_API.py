@@ -8,24 +8,19 @@ import requests
 from sys import argv
 
 
-if __name__ == '__main__':
-    todos = requests.get("https://jsonplaceholder.typicode.com/todos").json()
-    users = requests.get("https://jsonplaceholder.typicode.com/users/{}"
-                         .format(sys.argv[1])).json()
-    user_name = users.get("name")
-    user_id = users.get("id")
-    tasks = []
-    done_tasks = 0
-    total_tasks = 0
+if __name__ == "__main__":
+    url = 'https://jsonplaceholder.typicode.com/users/'
+    response_user = requests.get(url + argv[1])
+    employee_name = response_user.json()['name']
 
-    for status in todos:
-        if user_id == status.get("userId"):
-            if status.get("completed") is True:
-                done_tasks += 1
-                tasks.append(status.get('title'))
-            total_tasks += 1
-    print("Employee {} is done with tasks({}/{}):"
-          .format(user_name, done_tasks, total_tasks))
+    response_todos = requests.get(url + argv[1] + '/todos')
+    total_tasks = response_todos.json()
+    done_tasks = []
+    for dic in total_tasks:
+        if dic['completed']:
+            done_tasks.append(dic['title'])
 
-    for title in tasks:
-        print("\t", title)
+    print('Employee {} is done with tasks({}/{}):'
+          .format(employee_name, len(done_tasks), len(total_tasks)))
+    for tasks in done_tasks:
+        print('\t', tasks)
