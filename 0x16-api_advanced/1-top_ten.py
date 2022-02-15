@@ -7,7 +7,7 @@ import requests
 
 
 def top_ten(subreddit):
-    """ Function that queries the Reddit API and returns the 10 first 
+    """ Function that queries the Reddit API and returns the 10 first
         for a given subreddit.
     """
 
